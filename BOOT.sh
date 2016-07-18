@@ -17,7 +17,8 @@ else
     RAMDISKCMD="write ${RAMDISK_ADDR} ${INITRAMFS}"
 fi
 
-cat << _END_ > tmp/bootcmd_fel.txt
+mkdir -p ${TMPDIR}
+cat << _END_ > ${TMPDIR}/bootcmd_fel.txt
 setenv fdt_high ffffffff
 setenv bootargs console=ttyS0,115200 earlyprintk root=/dev/mmcblk0p2 rootwait
 setenv bootdelay 5
