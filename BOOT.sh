@@ -29,6 +29,6 @@ mkimage -C none -A arm -T script -d ${TMPDIR}/bootcmd_fel.txt ${TMPDIR}/bootfel.
 
 ${SUNXITOOLSDIR}/sunxi-fel uboot ${UBOOTDIR}/u-boot-sunxi-with-spl.bin \
  write ${KERNEL_ADDR} ${KERNELDIR}/arch/arm/boot/uImage \
- write ${FDT_ADDR} ${KERNELDIR}/arch/arm/boot/dts/sun8i-h3-orangepi-plus.dtb \
+ write ${FDT_ADDR} ${KERNELDIR}/arch/arm/boot/dts/sun8i-h3-orangepi-pc.dtb \
  write ${SCRIPT_ADDR} ${TMPDIR}/bootfel.scr \
  ${RAMDISKCMD}
