@@ -14,17 +14,6 @@ const struct regmap_config test_spi_regmap_config = {
 	.read_flag_mask = 0x800000,
 };
 
-static int __init test_spi_init(void)
-{
-	pr_info("Hello World!\n");
-	return 0;
-}
-
-static void __exit test_spi_exit(void)
-{
-	pr_info("Bye World!\n");
-}
-
 static const struct of_device_id spi_test_match[] = {
 	{
 		.compatible = "k,test-regmap-spi",
@@ -48,6 +37,7 @@ static int test_spi_probe(struct spi_device *spi)
 
 	regmap_write(regmap, 0x1234, 0x5678);
 	regmap_read(regmap, 0x1234, &val);
+	regmap_read(regmap, 0xdead, &val);
 	dev_info(&spi->dev, "val = %d\n", val);
 
 	return 0;
@@ -60,7 +50,7 @@ static int test_spi_remove(struct spi_device *spi)
 	return 0;
 }
 
-static const struct spi_driver test_spi_driver = {
+static struct spi_driver test_spi_driver = {
 	.driver = {
 		.name = "test_spi",
 		.of_match_table = spi_test_match,
@@ -68,9 +58,7 @@ static const struct spi_driver test_spi_driver = {
 	.probe = test_spi_probe,
 	.remove = test_spi_remove,
 };
-
-module_init(test_spi_init);
-module_exit(test_spi_exit);
+module_spi_driver(test_spi_driver);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Krzysztof Adamski <k@japko.eu>");
