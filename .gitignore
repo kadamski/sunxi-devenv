@@ -1,1 +1,13 @@
 tmp/
+buildroot-overlay/
+*.ko
+*.mod.c
+*.mod.o
+*.o
+*.o.cmd
+*.ko.cmd
+*.swp
+*.cache.mk
+.tmp_versions
+modules.order
+Module.symvers
