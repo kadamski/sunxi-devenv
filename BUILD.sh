@@ -35,8 +35,8 @@ done
 
 pushd buildroot
 if [ ! -f .config ]; then
-	cp ../configs/buildroot.defconfig custom_defconfig
+	cp ../configs/buildroot.defconfig configs/custom_defconfig
 	make ARCH=arm CROSS_COMPILE=${CROSSCOMPILER} custom_defconfig
 fi
-make ARCH=arm -j6 CROSS_COMPILE=${CROSSCOMPILER}
+make ARCH=arm CROSS_COMPILE=${CROSSCOMPILER}
 popd
