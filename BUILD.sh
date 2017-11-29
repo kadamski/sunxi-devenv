@@ -2,6 +2,19 @@
 set -e
 CROSSCOMPILER=arm-linux-gnu-
 
+declare -A UBOOT_DEF
+UBOOT_DEF[opi_pc]=orangepi_pc_defconfig
+UBOOT_DEF[npi_neo]=nanopi_neo_defconfig
+
+BOARD=${BOARD:-opi_pc}
+
+if [ -z "${UBOOT_DEF[${BOARD}]}" ]; then
+	echo "Wrong BOARD env"
+	exit 1
+else
+	echo "*** Using ${UBOOT_DEF[${BOARD}]} u-boot defconfig"
+fi
+
 pushd dtc
 make
 popd
@@ -13,7 +26,7 @@ popd
 pushd u-boot-sunxi/
 export PATH=../dtc/:$PATH
 if [ ! -f .config ]; then
-	make ARCH=arm CROSS_COMPILE=${CROSSCOMPILER} orangepi_pc_defconfig
+	make ARCH=arm CROSS_COMPILE=${CROSSCOMPILER} ${UBOOT_DEF[$BOARD]}
 fi
 make ARCH=arm -j6 CROSS_COMPILE=${CROSSCOMPILER}
 popd
